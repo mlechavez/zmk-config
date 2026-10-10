@@ -1,5 +1,5 @@
 # This file generates the GitHub Actions matrix
 ---
 include:
-  - board: glove80_lh
-  - board: glove80_rh
+  - board: glove80_v0_lh
+  - board: glove80_v0_rh
