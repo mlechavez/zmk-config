@@ -90,6 +90,19 @@
 };
 
 / {
+    macros {
+        rgb_ug_status_macro: rgb_ug_status_macro {
+            label = "RGB_UG_STATUS";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&rgb_ug RGB_STATUS>;
+        };
+    };
+};
+
+
+/ {
 #ifdef BT_DISC_CMD
     behaviors {
         bt_0: bt_0 {
@@ -201,7 +214,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
-            bindings = <&mo>, <&none>;
+            bindings = <&mo>, <&rgb_ug_status_macro>;
         };
     };
 };
@@ -333,7 +346,7 @@ behaviors {
     behaviors {
 
 
-        hml: hml {
+        hm_alt: hm_alt {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <280>;
@@ -341,20 +354,10 @@ behaviors {
             flavor = "balanced";
             quick-tap-ms = <175>;
             require-prior-idle-ms = <150>;
-            hold-trigger-on-release;
-            hold-trigger-key-positions = <
-                POS_RH_C2R1 POS_RH_C3R1 POS_RH_C4R1 POS_RH_C5R1 POS_RH_C6R1
-                POS_RH_C1R2 POS_RH_C2R2 POS_RH_C3R2 POS_RH_C4R2 POS_RH_C5R2 POS_RH_C6R2
-                POS_RH_C1R3 POS_RH_C2R3 POS_RH_C3R3 POS_RH_C4R3 POS_RH_C5R3 POS_RH_C6R3
-                POS_RH_C1R4 POS_RH_C2R4 POS_RH_C3R4 POS_RH_C4R4 POS_RH_C5R4 POS_RH_C6R4
-                POS_RH_C1R5 POS_RH_C2R5 POS_RH_C3R5 POS_RH_C4R5 POS_RH_C5R5 POS_RH_C6R5
-                POS_RH_C2R6 POS_RH_C3R6 POS_RH_C4R6 POS_RH_C5R6 POS_RH_C6R6
-                POS_LH_T1 POS_LH_T2 POS_LH_T3 POS_LH_T4 POS_LH_T5 POS_LH_T6
-                POS_RH_T1 POS_RH_T2 POS_RH_T3 POS_RH_T4 POS_RH_T5 POS_RH_T6
-            >;
+            hold-while-undecided-linger;
         };
 
-        hmr: hmr {
+        hm_shift: hm_shift {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <280>;
@@ -362,17 +365,29 @@ behaviors {
             flavor = "balanced";
             quick-tap-ms = <175>;
             require-prior-idle-ms = <150>;
-            hold-trigger-on-release;
-            hold-trigger-key-positions = <
-                POS_LH_C6R1 POS_LH_C5R1 POS_LH_C4R1 POS_LH_C3R1 POS_LH_C2R1
-                POS_LH_C6R2 POS_LH_C5R2 POS_LH_C4R2 POS_LH_C3R2 POS_LH_C2R2 POS_LH_C1R2
-                POS_LH_C6R3 POS_LH_C5R3 POS_LH_C4R3 POS_LH_C3R3 POS_LH_C2R3 POS_LH_C1R3
-                POS_LH_C6R4 POS_LH_C5R4 POS_LH_C4R4 POS_LH_C3R4 POS_LH_C2R4 POS_LH_C1R4
-                POS_LH_C6R5 POS_LH_C5R5 POS_LH_C4R5 POS_LH_C3R5 POS_LH_C2R5 POS_LH_C1R5
-                POS_LH_C6R6 POS_LH_C5R6 POS_LH_C4R6 POS_LH_C3R6 POS_LH_C2R6
-                POS_LH_T1 POS_LH_T2 POS_LH_T3 POS_LH_T4 POS_LH_T5 POS_LH_T6
-                POS_RH_T1 POS_RH_T2 POS_RH_T3 POS_RH_T4 POS_RH_T5 POS_RH_T6
-            >;
+            hold-while-undecided-linger;
+        };
+
+        hm_ctrl: hm_ctrl {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <280>;
+            bindings = <&kp>, <&kp>;
+            flavor = "balanced";
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <150>;
+            hold-while-undecided-linger;
+        };
+
+        hm_superkey: hm_superkey {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <280>;
+            bindings = <&kp>, <&kp>;
+            flavor = "balanced";
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <150>;
+            hold-while-undecided-linger;
         };
     };
 };
@@ -383,7 +398,7 @@ behaviors {
         compatible = "zmk,combos";
 
         combo_at_sign {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C4R3 POS_LH_C3R3>;
             bindings = <&kp LS(N2)>;
             layers = <LAYER_Base>;
@@ -391,7 +406,7 @@ behaviors {
         };
 
         combo_left_paren {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_RH_C2R4 POS_RH_C3R4>;
             bindings = <&kp LS(N9)>;
             layers = <LAYER_Base>;
@@ -399,7 +414,7 @@ behaviors {
         };
 
         combo_exclamation {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C4R3 POS_LH_C5R3>;
             bindings = <&kp LS(N1)>;
             layers = <LAYER_Base>;
@@ -407,7 +422,7 @@ behaviors {
         };
 
         combo_pound_sign {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C3R3 POS_LH_C2R3>;
             bindings = <&kp LS(N3)>;
             layers = <LAYER_Base>;
@@ -415,7 +430,7 @@ behaviors {
         };
 
         combo_caret {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C4R4 POS_LH_C5R4>;
             bindings = <&kp LS(N6)>;
             layers = <LAYER_Base>;
@@ -423,7 +438,7 @@ behaviors {
         };
 
         combo_dollar {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C3R4 POS_LH_C2R4>;
             bindings = <&kp LS(N4)>;
             layers = <LAYER_Base>;
@@ -431,7 +446,7 @@ behaviors {
         };
 
         combo_percent {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C5R5 POS_LH_C4R5>;
             bindings = <&kp LS(N5)>;
             layers = <LAYER_Base>;
@@ -439,7 +454,7 @@ behaviors {
         };
 
         combo_amp {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_RH_C2R3 POS_RH_C3R3>;
             bindings = <&kp LS(N7)>;
             layers = <LAYER_Base>;
@@ -447,7 +462,7 @@ behaviors {
         };
 
         combo_underscore {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C4R5 POS_LH_C3R5>;
             bindings = <&kp LS(MINUS)>;
             layers = <LAYER_Base>;
@@ -455,7 +470,7 @@ behaviors {
         };
 
         combo_equal {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C4R4 POS_LH_C3R4>;
             bindings = <&kp EQUAL>;
             layers = <LAYER_Base>;
@@ -463,7 +478,7 @@ behaviors {
         };
 
         combo_dash {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C2R5 POS_LH_C3R5>;
             bindings = <&kp MINUS>;
             layers = <LAYER_Base>;
@@ -471,7 +486,7 @@ behaviors {
         };
 
         combo_double_quot {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_RH_C3R4 POS_RH_C4R4>;
             bindings = <&kp LS(SQT)>;
             layers = <LAYER_Base>;
@@ -479,7 +494,7 @@ behaviors {
         };
 
         combo_cut {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C5R5 POS_LH_C4R5>;
             bindings = <&kp LC(X)>;
             layers = <LAYER_Navigation>;
@@ -487,7 +502,7 @@ behaviors {
         };
 
         combo_copy {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C4R5 POS_LH_C3R5>;
             bindings = <&kp LC(INS)>;
             layers = <LAYER_Navigation>;
@@ -495,7 +510,7 @@ behaviors {
         };
 
         combo_paste {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C3R5 POS_LH_C2R5>;
             bindings = <&kp LS(INS)>;
             layers = <LAYER_Navigation>;
@@ -503,7 +518,7 @@ behaviors {
         };
 
         combo_right_paren {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_RH_C4R4 POS_RH_C5R4>;
             bindings = <&kp LS(N0)>;
             layers = <LAYER_Base>;
@@ -511,7 +526,7 @@ behaviors {
         };
 
         combo_asterisk {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_RH_C3R3 POS_RH_C4R3>;
             bindings = <&kp LS(N8)>;
             layers = <LAYER_Base>;
@@ -519,7 +534,7 @@ behaviors {
         };
 
         combo_single_quot {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_RH_C3R5 POS_RH_C4R5>;
             bindings = <&kp SQT>;
             layers = <LAYER_Base>;
@@ -527,15 +542,15 @@ behaviors {
         };
 
         combo_delete {
-            timeout-ms = <30>;
+            timeout-ms = <280>;
             key-positions = <POS_RH_C3R3 POS_RH_C2R4>;
             bindings = <&kp DEL>;
             layers = <LAYER_Base>;
-            require-prior-idle-ms = <50>;
+            require-prior-idle-ms = <150>;
         };
 
         combo_backslash_pipe {
-            timeout-ms = <20>;
+            timeout-ms = <280>;
             key-positions = <POS_RH_C4R3 POS_RH_C5R3>;
             bindings = <&kp BSLH>;
             layers = <LAYER_Base>;
@@ -543,11 +558,11 @@ behaviors {
         };
 
         combo_esc {
-            timeout-ms = <30>;
+            timeout-ms = <280>;
             key-positions = <POS_LH_C4R4 POS_LH_C3R3>;
             bindings = <&kp ESC>;
             layers = <LAYER_Base>;
-            require-prior-idle-ms = <50>;
+            require-prior-idle-ms = <150>;
         };
     };
 };
@@ -563,7 +578,7 @@ behaviors {
                &kp F1            &kp F2             &kp F3               &kp F4          &kp F5                                                                                                                        &kp F6                         &kp F7             &kp F8               &kp F9  &kp F10
                 &none             &none              &none                &none           &none   &none                                                                                                 &none           &none                          &none              &none                &none    &none
                 &none             &kp Q              &kp W    &lt LAYER_Media E           &kp R   &kp T                                                                                                 &kp Y           &kp U  &lt_function LAYER_Function I              &kp O                &kp P    &none
-                &none  &hml LCTRL A  &hml LSHFT S  &hml LGUI D  &hml LALT F   &kp G                                                                                                 &kp H  &hmr LALT J            &hmr RGUI K  &hmr RSHFT L  &hmr RCTRL SEMI    &none
+                &none  &hm_ctrl LCTRL A  &hm_shift LSHFT S  &hm_superkey LGUI D  &hm_alt LALT F   &kp G                                                                                                 &kp H  &hm_alt LALT J            &hm_superkey RGUI K  &hm_shift RSHFT L  &hm_ctrl RCTRL SEMI    &none
                 &none             &kp Z              &kp X                &kp C           &kp V   &kp B                      &none   &none  &lower   &none   &none                              &none   &kp N           &kp M                      &kp COMMA            &kp DOT             &kp FSLH    &none
  &magic LAYER_Magic 0             &none              &none             &kp LEFT       &kp RIGHT          &lt LAYER_Navigation BSPC   &none   &none   &none   &none  &lt_numberv1 LAYER_NumberV2 SPACE                  &kp UP                       &kp DOWN              &none                &none    &none
             >;
